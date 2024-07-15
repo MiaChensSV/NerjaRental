@@ -2,6 +2,8 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 const port = 5000;
@@ -17,8 +19,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "yihong.chen33@gmail.com",
-    pass: process.env.PASSWORD
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   },
 });
 
@@ -38,9 +40,9 @@ app.post("/send-email", (req, res) => {
 
   // Email content
   const mailOptions = {
-    from: "miachensv@gmail.com",
-    to: "info@vacationnerja.com", // Replace with recipient email
-    cc: "miachensv@outlook.com",
+    from: process.env.EMAIL_USE,
+    to: process.env.EMAIL_TO, 
+    cc: process.env.EMAIL_CC,
     subject: "New Message from Contact Form",
     html: `
       <p><strong>Name:</strong> ${fullName}</p>
