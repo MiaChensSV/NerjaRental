@@ -6,7 +6,6 @@
   height: 80px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 0 60px;
   position: fixed;
   left: 50%;
@@ -241,15 +240,14 @@ button:hover {
     width: 100vw;
   }
 } */
-@media screen and (min-width: 821px) and (max-width: 1024px) {
+@media screen and (min-width: 821px) and (max-width: 1200px) {
+ 
   .nav-menu {
     display: grid;
     grid-template-columns: repeat(6, auto);
-    grid-gap: 5px; /* Adjust the gap to ensure all items fit */
+    grid-gap: 10px; /* Adjust the gap to ensure all items fit */
     list-style: none;
-    align-items: center;
-    text-align: center;
-    justify-content: end;
+
   }
   
   .dropdown-menu {
@@ -276,7 +274,8 @@ button:hover {
     margin:0.2rem
   }
   .NavbarItems {
-    padding: 0 50px; /* Adjust padding to make room for menu items */
+    display: flex;
+    justify-content: center;
     h1 {
       display: none;
     }

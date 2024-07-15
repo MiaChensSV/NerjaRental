@@ -29,6 +29,7 @@ h1 {
     border: 1px solid #dcdcdc;
     height: 36px;
     padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
@@ -165,12 +166,20 @@ h1 {
 @media (max-width: 768px) {
   .contact-form {
     .two-column {
+      width: 90%;
       flex-direction: column;
+      gap:0px;
+      .inputValue{
+        width: 100%;
+      }
+      
     }
 
-    .inputValue,
-    .phoneInput {
+    .phoneInput{
       width: 100%;
+      input{
+        width: 100%;
+      }
     }
 
     .label-input input,
@@ -182,7 +191,7 @@ h1 {
 
     .children-age .inputValue,
     .message {
-      width: 100%;
+      width: 95%;
     }
   }
 }

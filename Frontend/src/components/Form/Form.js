@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "../Form/Form.css";
@@ -111,17 +112,35 @@ const ContactForm = () => {
       setIsSubmitted(true);
       setShowSuccessMessage(true);
       window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top
-      console.log({
-        fullName,
-        email,
-        phone,
-        checkInDate,
-        checkOutDate,
-        totalAdults,
-        totalChildren,
-        childrenAges,
-        message,
-      });
+      // console.log({
+      //   fullName,
+      //   email,
+      //   phone,
+      //   checkInDate,
+      //   checkOutDate,
+      //   totalAdults,
+      //   totalChildren,
+      //   childrenAges,
+      //   message,
+      // });
+      axios
+        .post("/send-email", {
+          fullName,
+          email,
+          phone,
+          checkInDate,
+          checkOutDate,
+          totalAdults,
+          totalChildren,
+          childrenAges,
+          message,
+        })
+        .then((response) => {
+          console.log("Email sent successfully:", response);
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+        });
       // Optionally reset form fields after submission
       // setFullName('');
       // setEmail('');
