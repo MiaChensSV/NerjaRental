@@ -4,6 +4,7 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "../Form/Form.css";
 
+
 const ContactForm = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +18,21 @@ const ContactForm = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false); // State to track form submission success
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  const unavailableDates = [
+    new Date("2024-07-20"),
+    new Date("2024-07-21"),
+    new Date("2024-07-22"),
+  ];
+
+  const isDateUnavailable = (date) => {
+    return unavailableDates.some(
+      (unavailableDate) =>
+        date.getFullYear() === unavailableDate.getFullYear() &&
+        date.getMonth() === unavailableDate.getMonth() &&
+        date.getDate() === unavailableDate.getDate()
+    );
+  };
 
   // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
@@ -202,25 +218,19 @@ const ContactForm = () => {
             <div className="two-column">
               <div className="inputValue">
                 <label htmlFor="check-in-date">Check-in:</label>
-                <input
+                {/* <input
                   type="date"
                   id="check-in-date"
                   value={checkInDate}
                   onChange={handleCheckInDateChange}
                   min={today}
                   required
-                />
+                /> */}
+                
               </div>
               <div className="inputValue">
                 <label htmlFor="check-out-date">Check-out:</label>
-                <input
-                  type="date"
-                  id="check-out-date"
-                  value={checkOutDate}
-                  onChange={handleCheckOutDateChange}
-                  min={checkInDate}
-                  required
-                />
+               
               </div>
             </div>
             <div className="two-column">
