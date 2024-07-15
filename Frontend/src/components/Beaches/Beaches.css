@@ -1,0 +1,37 @@
+.beach-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
+  color: rgb(63, 63, 63);
+  .left-column {
+    width: 50%;
+  }
+  .right-column {
+    width: 50%;
+  }
+  .image {
+    width: 100%;
+    margin-top: 30px;
+    img {
+      width: 100%;
+    }
+  }
+  .paragraph {
+    text-align: start;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .beach-container {
+    flex-direction: column;
+    .left-column {
+      width: 100%;
+    }
+    .right-column {
+      width: 100%;
+    }
+  }
+}

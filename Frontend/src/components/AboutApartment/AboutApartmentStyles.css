@@ -1,0 +1,225 @@
+.about-container {
+  margin: 4rem 6rem;
+  color: #2a2a2a;
+  text-align: start;
+  overflow: hidden;
+}
+
+.about-container h1 {
+  padding-bottom: 1rem;
+}
+
+.about-container p {
+  padding-bottom: 2rem;
+}
+#bedrooms {
+  padding: 20px 0px;
+}
+.bedrooms {
+  display: flex;
+  flex-direction: row;
+  gap: 20%;
+}
+.subtitle-ficha {
+  color: #505050;
+  font-family: "Open Sans" !important;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.53px;
+  margin-bottom: 25px;
+  margin-top: 10px;
+  padding: 0;
+}
+#bedrooms .bed-icons i {
+  color: #505050;
+  font-size: 28px;
+  margin-right: 8px;
+}
+
+#bedrooms .room-type {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.featureAndCalendar {
+  display: flex;
+  flex-direction: row;
+}
+#mainFeatures {
+  font-size: 18px;
+  font-weight: 500;
+}
+#mainFeatures .features {
+  display: flex;
+  flex-wrap: wrap;
+}
+#mainFeatures .features .feature {
+  flex-basis: calc(50% - 16px);
+  margin: 32px 16px 0 0;
+}
+
+#mainFeatures .features .feature i {
+  padding-right: 20px;
+}
+#kitchen > div:first-of-type {
+  display: flex;
+  flex-wrap: wrap;
+}
+.kitchen > div:first-of-type .kitchen-item:nth-child(-n + 3) {
+  margin-top: 0;
+}
+#kitchen > div:first-of-type .kitchen-item {
+  flex-basis: calc(33.333% - 16px);
+  margin: 16px 16px 0 0;
+  font-weight: 400;
+}
+.separate-sections {
+  border-top: 1px solid #ddd;
+  margin-bottom: 32px;
+  margin-top: 17px;
+}
+#general > div:first-of-type {
+  display: flex;
+  flex-wrap: wrap;
+}
+#general > div:first-of-type .general-item:nth-child(-n + 3) {
+  margin-top: 0;
+}
+#general > div:first-of-type .general-item {
+  flex-basis: calc(33.333% - 16px);
+  margin: 16px 16px 0 0;
+  font-weight: 500;
+}
+#touristicRegistrationNumber {
+  color: #505050;
+  display: block;
+  font-size: 18px;
+  font-style: italic;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+#mandatoryServices > div:first-of-type {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+#mandatoryServices > div:first-of-type .mandatory-item > span {
+  background: #f7f7f7;
+  border-radius: 16px;
+  color: #878787;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 5px 8px 5px 0;
+  padding: 5px 15px;
+  text-align: left;
+}
+#schedules > div:first-of-type {
+  align-items: center;
+  background-color: #f7f7f7;
+  border-radius: 3px 0 0 3px;
+  display: flex;
+  padding: 16px 32px;
+}
+#schedules > div:first-of-type > div {
+  display: flex;
+  width: 50%;
+}
+#schedules .separador-horarios {
+  background-color: #ececec;
+  border: 0;
+  height: 50px;
+  margin: 0 16px;
+  width: 1px;
+}
+#schedules > div:first-of-type > div {
+  display: flex;
+  width: 50%;
+}
+#schedules img {
+  margin-right: 32px;
+  width: 68px;
+  height: 47px;
+}
+#schedules > div:first-of-type > div > div:first-of-type {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 480px) {
+  .about-container {
+    margin: 4rem 2rem;
+    #mainFeatures {
+      .features {
+        .feature {
+          i {
+            font-size: 16px;
+          }
+          span {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    #kitchen {
+      .kitchen-items {
+        display: flex;
+        flex-direction: row;
+        .kitchen-item {
+          display: inline;
+          font-size: 16px;
+        }
+      }
+    }
+    #bedrooms {
+      .bedrooms {
+        .bedroom-item {
+          span {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    #general {
+      span {
+        font-size: medium;
+      }
+      .general-items {
+        .general-item {
+          margin: 10px 10px 0 0;
+          font-size: 16px;
+        }
+      }
+    }
+    #schedules {
+      .schedule {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .horario-entrada {
+          width: 100%;
+          b {
+            font-size: 16px;
+          }
+        }
+        .horario-salida {
+          width: 100%;
+          b {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 820px) {
+  .about-container {
+    margin: 4rem 2rem;
+  }
+}
+@media screen and (min-width: 821px) and (max-width: 1280px) {
+}
+
+@media screen and (min-width: 1281px) {
+}

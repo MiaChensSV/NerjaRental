@@ -1,0 +1,130 @@
+/* PriceStyle.css */
+.price-container{
+  /* margin: 4rem 6rem; */
+  color: #2a2a2a;
+  text-align: start;
+  overflow: hidden;
+  width: 100%;
+  .class_title{
+    padding-top: 5%;
+    padding-left: 5%;
+  }
+  .rates-table{
+    padding-left: 5%;
+  }
+}
+.separate-sections {
+  border-top: 1px solid #ddd;
+  margin: 17px 0 32px;
+}
+
+table {
+  color: #636363;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#rates-table {
+  position: relative;
+  border: 1px solid #e2e2e2;
+  padding: 5px 20px 18px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#rates-table th {
+  text-align: left;
+  padding: 20px;
+}
+
+#rates-table .rate-title {
+  font-weight: 400;
+  font-size: 15px;
+  margin-left: 14px;
+}
+
+#rates-table .rate-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+#rates-table .rate-column {
+  flex: 1;
+  padding: 10px 0;
+  vertical-align: middle;
+}
+
+#rates-table .rate-date {
+  border: 1px solid #19dc8d;
+  border-radius: 25px;
+  padding: 3px 18px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #19dc8d;
+  display: inline-block;
+  width: 126px;
+}
+
+#rates-table .rate-price {
+  font-weight: bold;
+  padding-left: 20px;
+
+}
+
+#rates-table .separadorRates {
+  display: inline-block;
+  color: #19dc8d;
+}
+@media screen and (max-width: 480px) {
+  .price-container{
+    color: #2a2a2a;
+    text-align: start;
+    overflow: hidden;
+    width: 100%;
+    .rate-row{
+      display: flex;
+      flex-direction: column;
+      .rate-column{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        .rate-price{
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 820px) {
+
+}
+
+
+@media screen and (min-width: 821px) and (max-width: 1080px) {
+  
+}
+
+@media screen and (min-width: 1081px) {
+  tbody{
+    display: flex;
+    justify-content: space-around;
+    .rate-row{
+      display: flex;
+      flex-direction: column;
+      .rate-column{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        .rate-price{
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+}

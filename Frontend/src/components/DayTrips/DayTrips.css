@@ -1,0 +1,97 @@
+.excursion-container {
+  width: 100%;
+  padding: 40px;
+  text-align: start;
+  overflow: hidden;
+  .section {
+    padding-top: 20px;
+    line-height: 40px;
+    p {
+      line-height: 35px;
+      font-size: 20px;
+    }
+    a {
+      color: #2B2B2B;
+      word-wrap: break-word;
+    }
+    a:hover {
+      color: #dcac3b;
+    }
+    .pictureAndText {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      padding-top: 20px;
+      .picture {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        gap: 20px;
+        .image {
+          width: 100%;
+          img {
+            width: 100%;
+          }
+          
+        }
+      }
+      .text {
+        width: 50%;
+        line-height: 35px;
+      }
+    }
+    ul {
+      margin-top: 30px;
+      li {
+        margin-left: 60px;
+        line-height: 40px;
+      }
+    }
+    .numbered-list {
+      list-style-type: decimal;
+    }
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .excursion-container {
+    .section {
+     
+      .pictureAndText {
+        display: flex;
+        flex-direction: column;
+        .picture {
+          width: 100%;
+        }
+        .text {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .excursion-container {
+    h1{
+      font-size: 30px;
+    }
+    width: 100vw;
+    .section {
+      .pictureAndText {
+        display: flex;
+        flex-direction: column;
+        .picture {
+          width: 100%;
+        }
+        .text {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1281px){
+  .bigDisplayNone{
+    display: none;
+  }
+}
