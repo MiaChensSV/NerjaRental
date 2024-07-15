@@ -71,13 +71,13 @@
 .react-datepicker__month-text--disabled,
 .react-datepicker__quarter-text--disabled,
 .react-datepicker__year-text--disabled {
-  background: #ffbfbf !important;
+  background: #ffbfbf;
 }
 
 .day.today {
   color: #2b2b2b;
   border-radius: 50%;
-  border: 1px solid green;
+  border: 2px solid green;
 }
 
 .react-datepicker__day,
@@ -101,7 +101,7 @@
   border: none;
 }
 .day.full-booked {
-  background: green;
+  background: #ffbfbf;
 }
 .day.start-booked {
   background: linear-gradient(to bottom right, white 50%, #ffbfbf 50%);

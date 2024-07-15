@@ -14,7 +14,7 @@ import { getResponsiveMonthsShown } from "../ResponsiveMonths";
 
 const Availability = ({ defaultMonthsShown = 1 }) => {
   const [monthsShown, setMonthsShown] = useState(defaultMonthsShown);
-  
+
   const updateMonthsShown = () => {
     const months = getResponsiveMonthsShown();
     setMonthsShown(months);
@@ -59,21 +59,19 @@ const Availability = ({ defaultMonthsShown = 1 }) => {
 
   const getDayClass = (date) => {
     const dateStart = startOfDay(date);
-    // Check if the date is within any booked range
-    const range = bookedDateRanges.find((range) =>
+    // find which ranges include current day?
+    const ranges = bookedDateRanges.filter((range) =>
       isWithinInterval(dateStart, { start: range.start, end: range.end })
     );
 
-    if (!range) return ""; // Not booked
-    const isStart = isSameDay(dateStart, range.start);
-    const isEnd = isSameDay(dateStart, range.end);
-    if (isStart && isEnd) return "full-booked"; // Both start and end
-    if (isStart) return "start-booked"; // Only start
-    if (isEnd) return "end-booked"; // Only end
-
+    if (ranges.length === 0) return ""; // Not booked
+    if (ranges.length === 2) return "full-booked";
+    if (ranges.length === 1 && isSameDay(dateStart, ranges[0].start))
+      return "start-booked";
+    if (ranges.length === 1 && isSameDay(dateStart, ranges[0].end))
+      return "end-booked";
     return "mid-booked"; // Somewhere in between
   };
-
 
   return (
     <div className="calendar-container">

@@ -49,8 +49,22 @@ h1 {
           }
         }
         .react-datepicker__month-container {
+          .react-datepicker__header {
+            .react-datepicker__current-month {
+              font-size: 20px;
+            }
+            .react-datepicker__day-names {
+              font-weight: normal;
+            }
+          }
           .react-datepicker__month {
+            font-weight: normal;
             .react-datepicker__week {
+              .react-datepicker__day--today {
+                color: #2b2b2b;
+                border-radius: 50%;
+                border: 2px solid green;
+              }
               .react-datepicker__day--disabled {
                 color: #2b2b2b;
               }
