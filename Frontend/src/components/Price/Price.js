@@ -6,7 +6,6 @@ function Price() {
     <div className="price-container">
       <div id="tarifas" className="box-left">
         <h2 className="class_title">Price lists</h2>
-        <hr className="separate-sections" />
         <table className="rates-table" id="rates-table">
           <thead>
             <tr>
