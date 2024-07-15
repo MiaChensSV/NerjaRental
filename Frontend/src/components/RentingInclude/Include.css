@@ -3,7 +3,7 @@
   text-align: start;
   overflow: hidden;
   width: 100%;
-  padding: 5%;
+  padding: 5% 5% 0 5%;
 
   h1 {
     line-height: 60px;

@@ -2,8 +2,9 @@
   display: flex;
   justify-content: center;
   padding: 2%;
-  width: 100%;
+  max-width: 100%;
   overflow: hidden;
+  flex-wrap: wrap;
   .react-datepicker {
     width: 100%;
     .react-datepicker__month-container {
@@ -129,7 +130,8 @@
 @media screen and (min-width: 481px) and (max-width: 820px) {
   .calendar-container {
     .react-datepicker {
-      width: 100%;
+      max-width: 100%;
+      flex-wrap: wrap;
       .react-datepicker__month-container {
         width: 50%;
       }
@@ -142,7 +144,8 @@
 @media (min-width: 821px) and (max-width: 1280px) {
   .calendar-container {
     .react-datepicker {
-      width: 100%;
+      max-width: 100%;
+      flex-wrap: wrap;
       .react-datepicker__month-container {
         width: 50%;
       }
