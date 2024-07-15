@@ -3,7 +3,8 @@ import axios from "axios";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "../Form/Form.css";
-
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 
 const ContactForm = () => {
   const [fullName, setFullName] = useState("");
@@ -226,11 +227,27 @@ const ContactForm = () => {
                   min={today}
                   required
                 /> */}
-                
+                <DatePicker
+                  selected={checkInDate}
+                  onChange={(date) => setCheckInDate(date)}
+                  minDate={today}
+                  filterDate={(date) => !isDateUnavailable(date)}
+                  placeholderText="Select a check-in date"
+                  dateFormat="yyyy-MM-dd"
+                  required
+                />
               </div>
               <div className="inputValue">
                 <label htmlFor="check-out-date">Check-out:</label>
-               
+                <DatePicker
+                  selected={checkOutDate}
+                  onChange={(date) => setCheckOutDate(date)}
+                  minDate={checkInDate || today}
+                  filterDate={(date) => !isDateUnavailable(date)}
+                  placeholderText="Select a check-out date"
+                  dateFormat="yyyy-MM-dd"
+                  required
+                />
               </div>
             </div>
             <div className="two-column">

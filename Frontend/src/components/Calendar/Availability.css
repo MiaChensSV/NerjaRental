@@ -84,7 +84,6 @@
 .react-datepicker__day--disabled,
 .react-datepicker__day--highlighted-custom-1,
 .react-datepicker__day--today {
-  pointer-events: none;
   cursor: default;
 }
 

@@ -30,6 +30,35 @@ h1 {
     height: 36px;
     padding-left: 20px;
     padding-right: 20px;
+    width: 100%;
+  }
+  .react-datepicker__tab-loop {
+    .react-datepicker-popper {
+      color: #2b2b2b;
+      .react-datepicker {
+        .react-datepicker__navigation--next {
+          top: 25px;
+          .react-datepicker__navigation-icon--next {
+            top: 2px;
+          }
+        }
+        .react-datepicker__navigation--previous {
+          top: 25px;
+          .react-datepicker__navigation-icon--previous {
+            top: 2px;
+          }
+        }
+        .react-datepicker__month-container {
+          .react-datepicker__month {
+            .react-datepicker__week {
+              .react-datepicker__day--disabled {
+                color: #2b2b2b;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -168,16 +197,15 @@ h1 {
     .two-column {
       width: 90%;
       flex-direction: column;
-      gap:0px;
-      .inputValue{
+      gap: 0px;
+      .inputValue {
         width: 100%;
       }
-      
     }
 
-    .phoneInput{
+    .phoneInput {
       width: 100%;
-      input{
+      input {
         width: 100%;
       }
     }
