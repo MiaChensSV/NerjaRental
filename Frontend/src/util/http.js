@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL =''
+const BASE_URL = process.env.REACT_APP_CALENDAR_URL + process.env.REACT_APP_CALENDAR_ID   + '/events'
 
 // Function to fetch events from the Google Calendar
 const fetchEvents = async () => {
@@ -8,7 +8,7 @@ const fetchEvents = async () => {
       axios
         .get(BASE_URL, {
           params: {
-            key: "",
+            key: process.env.REACT_APP_API_KEY,
             timeMin: new Date().toISOString(),
             maxResults: 10,
             singleEvents: true,

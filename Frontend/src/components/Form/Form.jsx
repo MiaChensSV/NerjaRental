@@ -39,9 +39,7 @@ const ContactForm = () => {
   useEffect(() => {
     if (bookedDateRanges == null) {
       fetchEvents().then((result) => {
-        console.log("Fetched events in Form: ", result);
         const adjustedEvents = result.map(adjustEventEndDate);
-        console.log("Adjusted events in Form: ", adjustedEvents);
         dispatch(setCalendarEvent(adjustedEvents));
       });
     } else {

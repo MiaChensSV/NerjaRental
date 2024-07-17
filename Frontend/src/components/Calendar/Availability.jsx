@@ -18,7 +18,6 @@ import adjustEventEndDate from "../../util/AdjustEndDate";
 
 const Availability = ({ defaultMonthsShown = 1 }) => {
   const [monthsShown, setMonthsShown] = useState(defaultMonthsShown);
-  const [highlightWithRanges, setHighlightWithRanges] = useState([]);
   const [getDayClass, setGetDayClass] = useState(() => () => "");
   const [isDayBlocked, setIsDayBlocked] = useState(() => () => false);
   const bookedDateRanges = useAppSelector((state) => state.calendar.events);
@@ -60,7 +59,6 @@ const Availability = ({ defaultMonthsShown = 1 }) => {
         .map((date) => startOfDay(date));
       const getDayClassFunc = (date) => {
         const dateStart = startOfDay(date);
-        const today = startOfDay(new Date());
         // find which ranges include current day?
         const ranges = eventRanges.filter((range) =>
           isWithinInterval(dateStart, { start: range.start, end: range.end })
@@ -71,11 +69,10 @@ const Availability = ({ defaultMonthsShown = 1 }) => {
         if (ranges.length === 1 && isSameDay(dateStart, ranges[0].end)){  return "end-booked";}
         return "mid-booked"; // Somewhere in between
       };
-      setHighlightWithRanges(highlightWithRangesFunc);
       setIsDayBlocked(() => isDayBlockedFunc);
       setGetDayClass(() => getDayClassFunc);
     }
-  }, [bookedDateRanges]);
+  }, [dispatch, bookedDateRanges]);
 
   useEffect(() => {
     updateMonthsShown();
