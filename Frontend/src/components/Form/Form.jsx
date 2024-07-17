@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "../Form/Form.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-
+import fetchEvents from "../../util/http";
+import { setCalendarEvent } from "../../store/calendarReducer";
+import adjustEventEndDate from "../../util/AdjustEndDate";
+import { useAppSelector } from "../../store";
+import {
+  addDays,
+  isBefore,
+  isSameDay,
+  startOfDay,
+  isWithinInterval,
+} from "date-fns";
 const ContactForm = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,20 +31,68 @@ const ContactForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false); // State to track form submission success
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const unavailableDates = [
-    new Date("2024-07-20"),
-    new Date("2024-07-21"),
-    new Date("2024-07-22"),
-  ];
+  const [getDayClass, setGetDayClass] = useState(() => () => "");
+  const [isDayBlocked, setIsDayBlocked] = useState(() => () => false);
+  const bookedDateRanges = useAppSelector((state) => state.calendar.events);
+  const dispatch = useDispatch();
 
-  const isDateUnavailable = (date) => {
-    return unavailableDates.some(
-      (unavailableDate) =>
-        date.getFullYear() === unavailableDate.getFullYear() &&
-        date.getMonth() === unavailableDate.getMonth() &&
-        date.getDate() === unavailableDate.getDate()
-    );
-  };
+  useEffect(() => {
+    if (bookedDateRanges == null) {
+      fetchEvents().then((result) => {
+        console.log("Fetched events in Form: ", result);
+        const adjustedEvents = result.map(adjustEventEndDate);
+        console.log("Adjusted events in Form: ", adjustedEvents);
+        dispatch(setCalendarEvent(adjustedEvents));
+      });
+    } else {
+      const eventRanges = bookedDateRanges.map((range) => ({
+        start: startOfDay(new Date(range.startDate)),
+        end: startOfDay(new Date(range.endDate)),
+      }));
+      const isDayBlockedFunc = (date) => {
+        const dateStart = startOfDay(date);
+        const today = startOfDay(new Date());
+        return (
+          isBefore(dateStart, today) ||
+          eventRanges.some((range) =>
+            isWithinInterval(dateStart, { start: range.start, end: range.end })
+          )
+        );
+      };
+      const highlightWithRangesFunc = eventRanges
+        .flatMap((range) => {
+          const days = [];
+          for (let d = range.start; d <= range.end; d = addDays(d, 1)) {
+            days.push(d);
+          }
+          return days;
+        })
+        .map((date) => startOfDay(date));
+      const getDayClassFunc = (date) => {
+        const dateStart = startOfDay(date);
+        const today = startOfDay(new Date());
+        // find which ranges include current day?
+        const ranges = eventRanges.filter((range) =>
+          isWithinInterval(dateStart, { start: range.start, end: range.end })
+        );
+        if (ranges.length === 0) {
+          return "";
+        } // Not booked
+        if (ranges.length === 2) {
+          return "full-booked";
+        }
+        if (ranges.length === 1 && isSameDay(dateStart, ranges[0].start)) {
+          return "start-booked";
+        }
+        if (ranges.length === 1 && isSameDay(dateStart, ranges[0].end)) {
+          return "end-booked";
+        }
+        return "mid-booked"; // Somewhere in between
+      };
+      setIsDayBlocked(() => isDayBlockedFunc);
+      setGetDayClass(() => getDayClassFunc);
+    }
+  }, [bookedDateRanges]);
 
   // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
@@ -41,33 +100,34 @@ const ContactForm = () => {
   const handleTotalAdultsChange = (e) => {
     const value = parseInt(e.target.value);
     setTotalAdults(value);
-    if (value === 0) {
-      setTotalChildren(0);
-      setChildrenAges([]);
+    if (value + totalChildren <= 4) {
+      setTotalAdults(value);
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        totalGroupSize: "",
+      }));
+    } else {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        totalGroupSize: "Total group size must be less than 4",
+      }))
     }
   };
 
   const handleTotalChildrenChange = (e) => {
     const value = parseInt(e.target.value);
-    setTotalChildren(value);
-    setChildrenAges([]); // Reset children ages when changing total children
-  };
-
-  const handleCheckInDateChange = (e) => {
-    const date = e.target.value;
-    setCheckInDate(date);
-    // Reset check-out date if it's earlier than the new check-in date
-    if (checkOutDate && date >= checkOutDate) {
-      setCheckOutDate("");
-    }
-  };
-
-  const handleCheckOutDateChange = (e) => {
-    const date = e.target.value;
-    setCheckOutDate(date);
-    // Prevent selection of dates earlier than check-in date
-    if (date < checkInDate) {
-      setCheckOutDate(checkInDate);
+    if (totalAdults + value <= 4) {
+      setTotalChildren(value);
+      setChildrenAges([]);
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        totalGroupSize: "",
+      }));
+    } else {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        totalGroupSize: "Total group size must be less than 4",
+      }));
     }
   };
 
@@ -129,17 +189,7 @@ const ContactForm = () => {
       setIsSubmitted(true);
       setShowSuccessMessage(true);
       window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top
-      // console.log({
-      //   fullName,
-      //   email,
-      //   phone,
-      //   checkInDate,
-      //   checkOutDate,
-      //   totalAdults,
-      //   totalChildren,
-      //   childrenAges,
-      //   message,
-      // });
+
       axios
         .post("/send-email", {
           fullName,
@@ -158,16 +208,6 @@ const ContactForm = () => {
         .catch((error) => {
           console.error("Error sending email:", error);
         });
-      // Optionally reset form fields after submission
-      // setFullName('');
-      // setEmail('');
-      // setPhone('');
-      // setCheckInDate('');
-      // setCheckOutDate('');
-      // setTotalAdults(1);
-      // setTotalChildren(0);
-      // setChildrenAges([]);
-      // setMessage('');
     }
   };
 
@@ -219,19 +259,21 @@ const ContactForm = () => {
             <div className="two-column">
               <div className="inputValue">
                 <label htmlFor="check-in-date">Check-in:</label>
-                {/* <input
-                  type="date"
-                  id="check-in-date"
-                  value={checkInDate}
-                  onChange={handleCheckInDateChange}
-                  min={today}
-                  required
-                /> */}
                 <DatePicker
                   selected={checkInDate}
                   onChange={(date) => setCheckInDate(date)}
                   minDate={today}
-                  filterDate={(date) => !isDateUnavailable(date)}
+                  renderDayContents={(day, date) => {
+                    const isToday = isSameDay(startOfDay(date), today);
+                    const dayClass = getDayClass(date);
+                    return (
+                      <div className={`day ${isToday ? "today" : ""} ${dayClass}`}>
+                        {day}
+                      </div>
+                    );
+                  }}
+                  filterDate={(date) => !isDayBlocked(date)}
+                  // filterDate={(date) => !isDateUnavailable(date)}
                   placeholderText="Select a check-in date"
                   dateFormat="yyyy-MM-dd"
                   required
@@ -243,9 +285,18 @@ const ContactForm = () => {
                   selected={checkOutDate}
                   onChange={(date) => setCheckOutDate(date)}
                   minDate={checkInDate || today}
-                  filterDate={(date) => !isDateUnavailable(date)}
+                  filterDate={(date) => !isDayBlocked(date)}
                   placeholderText="Select a check-out date"
                   dateFormat="yyyy-MM-dd"
+                  renderDayContents={(day, date) => {
+                    const isToday = isSameDay(startOfDay(date), today);
+                    const dayClass = getDayClass(date);
+                    return (
+                      <div className={`day ${isToday ? "today" : ""} ${dayClass}`}>
+                        {day}
+                      </div>
+                    );
+                  }}
                   required
                 />
               </div>

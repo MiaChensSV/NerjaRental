@@ -68,6 +68,9 @@ h1 {
               .react-datepicker__day--disabled {
                 color: #2b2b2b;
               }
+              .react-datepicker__day--keyboard-selected{
+                background-color: white;
+              }
             }
           }
         }

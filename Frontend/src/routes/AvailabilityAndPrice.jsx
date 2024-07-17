@@ -20,11 +20,11 @@ function AvailabilityAndPrice() {
         title="Availablity and prices"
         btnClass="hide"
       />
-      {/* <PriceInclude />
-      <Price /> */}
+      <PriceInclude />
+      <Price />
       <Availability monthsShown={3} />
-      {/* <Gallery images={aboutApartmentImage} />
-      <Footer /> */}
+      <Gallery images={aboutApartmentImage} />
+      <Footer />
     </>
   );
 }

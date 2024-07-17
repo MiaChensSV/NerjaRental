@@ -5,7 +5,6 @@ import Apartment from "./routes/Apartment";
 import Nerja from "./routes/Nerja";
 import AvailabilityAndPrice from "./routes/AvailabilityAndPrice";
 import Contact from "./routes/Contact";
-
 import { Route, Routes } from "react-router-dom";
 import Pictures from "./routes/Photos";
 import NerjaBeaches from "./routes/NerjaBeaches";
