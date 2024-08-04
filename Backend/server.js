@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 const port = 5000;
-
+console.log('in backend')
 // Middleware
 app.use(cors()); // Enable CORS for cross-origin requests
 app.use(bodyParser.json()); // Parse JSON bodies
@@ -26,6 +26,7 @@ const transporter = nodemailer.createTransport({
 
 // POST endpoint for handling form submissions
 app.post("/send-email", (req, res) => {
+  console.log('in backend app.post')
   const {
     fullName,
     email,
